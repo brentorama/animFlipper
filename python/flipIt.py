@@ -2,6 +2,7 @@ import maya.cmds as cmd
 import maya.mel as mel
 
 def flipIt()):
+    """This tool attempts to flip the pose of a rig based on a list of commonly named left/right control protocols"""
     r=[[0,0,0],[0,0,0],[0,0,0]]
     l=[[0,0,0],[0,0,0],[0,0,0]]
     userAttsL = ['']
@@ -38,6 +39,7 @@ def flipIt()):
                 for att in userAtts:
                     value = cmd.getAttr('%s.%s' % (ob, att))
                     userAttsR.append('setAttr %s.%s %s' % (ob, att, value)
+
     if lenL:
         for i in range(lenL):
             ob = selL[i]
@@ -49,9 +51,6 @@ def flipIt()):
                     value = cmd.getAttr('%s.%s' % (ob, att))
                     userAttsL.append('setAttr %s.%s %s' % (ob, att, value)
 
-    print userAttsL
-    print userAttsR
-
     #perform left and right flip
 
     if lenR: 
@@ -59,11 +58,7 @@ def flipIt()):
     if lenL:
         doFlip(0, lenL, selL, left, right, l, userAttsL);    
 
-# This function goes through all possible 'right' and 'left' protocols
-# and also through all selected objects and applies the stored R transforms to L
-# and vice versa, finally executing the userAttributes commands
-
-def doFlip(isR =0, length= 0, sel ='',left=[''],right=[''], trans=[[0,0,0],[0,0,0],[0,0,0]], userAtt=['']):
+def doFlip(isR =0, length= 0, sel =[''],left=[''],right=[''], trans=[[0,0,0],[0,0,0],[0,0,0]], userAtt=['']):
     string this, that, name
     for i in range(length):
         for l in left:
